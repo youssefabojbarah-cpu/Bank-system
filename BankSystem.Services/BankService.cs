@@ -34,6 +34,30 @@ namespace BankSystem.Services
 
             return account;
         }
+        public Account CreateCurrentAccount(string ownerName)
+        {
+            int id = GetNextId();
+
+            Account account = new CurrentAccount(id, ownerName);
+
+            accounts.Add(account);
+
+            repository.Save(accounts);
+
+            return account;
+        }
+        public Account CreateSavingAccount(string ownerName)
+        {
+            int id = GetNextId();
+
+            Account account = new SavingAccount(id, ownerName);
+
+            accounts.Add(account);
+
+            repository.Save(accounts);
+
+            return account;
+        }
         public Account GetAccount(int id)
         {
             Account account = accounts.FirstOrDefault(a => a.Id == id);

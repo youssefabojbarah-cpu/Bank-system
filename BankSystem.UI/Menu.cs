@@ -1,4 +1,5 @@
 using System;
+using BankSystem.Models;
 using BankSystem.Services;
 
 namespace BankSystem.UI
@@ -83,20 +84,43 @@ namespace BankSystem.UI
 
         private void CreateAccount()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("╔════════════════════════════════════════╗");
+            Console.WriteLine("║          SELECT ACCOUNT TYPE           ║");
+            Console.WriteLine("╠════════════════════════════════════════╣");
+            Console.ResetColor();
+
+            Console.WriteLine("║  [1] Current Account (Personal/Daily)  ║");
+            Console.WriteLine("║  [2] Saving Account  (Interest-Based)  ║");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("╚════════════════════════════════════════╝");
+            Console.ResetColor();
+
+            Console.Write("  Enter your choice: ");
+            string typeChoice = Console.ReadLine();
+
             Console.Write("Enter Owner Name: ");
             string name = Console.ReadLine();
 
-            Console.Write("Enter Withdrawal Limit: ");
-            if (!decimal.TryParse(Console.ReadLine(), out decimal limit))
+            Account account;
+            switch (typeChoice)
             {
-                Console.WriteLine("Invalid withdrawal limit.");
-                return;
+                case "1":
+                    account = bankService.CreateCurrentAccount(name);
+                    break;
+                
+                case "2":
+                    account = bankService.CreateSavingAccount(name);
+                    break;
+                
+                default:
+                    Console.WriteLine("Invalid account type.");
+                    return;
             }
 
-            bankService.CreateAccount(name, limit);
-
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Account created successfully.");
+            Console.WriteLine($"Account created successfully. Id = {account.Id}");
             Console.ResetColor();
         }
 
