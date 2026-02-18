@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BankSystem.Models/BankSystem.Models.csproj" />
+  <Project Path="BankSystem.Repositories/BankSystem.Repositories.csproj" />
+  <Project Path="BankSystem.Services/BankSystem.Services.csproj" />
+  <Project Path="BankSystem.Tests/BankSystem.Tests.csproj" />
+  <Project Path="BankSystem.UI/BankSystem.UI.csproj" />
+</Solution>

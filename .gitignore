@@ -1,0 +1,47 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+packages/
+
+# Environment files
+.env
+
+# Database / data files
+*.db
+
+# Banking system data file
+accounts.txt
+
+# Generated files
+*.cache
+*.tmp
+
+# Coverage
+coverage/
+
+# JetBrains Rider
+*.DotSettings.user
