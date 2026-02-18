@@ -16,21 +16,19 @@ namespace BankSystem.Repositories
             }
             FilePath = filePath;
         }
-
         public void Save(List<Account> accounts)
         {
-            if (accounts == null)
-            {
-                throw new ArgumentNullException(nameof(accounts));
-            }
-            using(StreamWriter sw = new StreamWriter(FilePath))
+            using (StreamWriter sw = new StreamWriter(FilePath))
             {
                 foreach (Account account in accounts)
                 {
-                    sw.WriteLine($"{account.Id}|{account.OwnerName}|{account.Balance}|{account.WithdrawalLimit}");
+                    string type = account.GetType().Name;
+
+                    sw.WriteLine($"{type}|{account.Id}|{account.OwnerName}|{account.Balance}");
                 }
             }
         }
+
         public List<Account> Load()
         {
             List<Account> accounts = new List<Account>();
@@ -46,21 +44,24 @@ namespace BankSystem.Repositories
                 {
                     string[] parts = line.Split('|');
 
-                    if (parts.Length != 4)
+                    string type = parts[0];
+                    int id = int.Parse(parts[1]);
+                    string ownerName = parts[2];
+                    decimal balance = decimal.Parse(parts[3]);
+
+                    Account account;
+
+                    if (type == "CurrentAccount")
+                        account = new CurrentAccount(id, ownerName);
+
+                    else if (type == "SavingAccount")
+                        account = new SavingAccount(id, ownerName);
+
+                    else
                         continue;
 
-                    if (!int.TryParse(parts[0], out int id))
-                        continue;
-
-                    string ownerName = parts[1];
-
-                    if (!decimal.TryParse(parts[2], out decimal balance))
-                        continue;
-
-                    if (!decimal.TryParse(parts[3], out decimal withdrawalLimit))
-                        continue;
-
-                    Account account = new Account(id, ownerName, balance, withdrawalLimit, true);
+                    if (balance > 0)
+                        account.Deposit(balance);
 
                     accounts.Add(account);
                 }
@@ -68,5 +69,6 @@ namespace BankSystem.Repositories
 
             return accounts;
         }
+        
     }
 }

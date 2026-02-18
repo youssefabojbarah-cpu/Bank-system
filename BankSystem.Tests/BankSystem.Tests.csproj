@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BankSystem.Services\BankSystem.Services.csproj" />
+    <ProjectReference Include="..\BankSystem.Models\BankSystem.Models.csproj" />
+    <ProjectReference Include="..\BankSystem.Repositories\BankSystem.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

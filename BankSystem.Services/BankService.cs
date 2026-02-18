@@ -23,17 +23,6 @@ namespace BankSystem.Services
 
             return accounts.Max(a => a.Id) + 1;
         }
-        public Account CreateAccount(string ownerName, decimal withdrawalLimit)
-        {
-            int id = GetNextId();
-            Account account = new Account(id, ownerName, withdrawalLimit);
-
-            accounts.Add(account);
-
-            repository.Save(accounts);
-
-            return account;
-        }
         public Account CreateCurrentAccount(string ownerName)
         {
             int id = GetNextId();
