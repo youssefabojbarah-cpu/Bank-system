@@ -16,13 +16,16 @@ namespace BankSystem.Services
             
             accounts = repository.Load();
         }
-        public Account CreateAccount(int id, string ownerName, decimal withdrawalLimit)
+        private int GetNextId()
         {
-            if (accounts.Any(a => a.Id == id))
-            {
-                throw new InvalidOperationException("Account with same Id already exists.");
-            }
+            if (accounts.Count == 0)
+                return 1;
 
+            return accounts.Max(a => a.Id) + 1;
+        }
+        public Account CreateAccount(string ownerName, decimal withdrawalLimit)
+        {
+            int id = GetNextId();
             Account account = new Account(id, ownerName, withdrawalLimit);
 
             accounts.Add(account);

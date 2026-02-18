@@ -83,13 +83,6 @@ namespace BankSystem.UI
 
         private void CreateAccount()
         {
-            Console.Write("Enter Account Id: ");
-            if (!int.TryParse(Console.ReadLine(), out int id))
-            {
-                Console.WriteLine("Invalid Id.");
-                return;
-            }
-
             Console.Write("Enter Owner Name: ");
             string name = Console.ReadLine();
 
@@ -100,7 +93,7 @@ namespace BankSystem.UI
                 return;
             }
 
-            bankService.CreateAccount(id, name, limit);
+            bankService.CreateAccount(name, limit);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Account created successfully.");
